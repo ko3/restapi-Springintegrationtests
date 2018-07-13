@@ -3,6 +3,7 @@ package com.monks.spring.controller;
 import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
@@ -22,7 +23,7 @@ public class MemberController {
 		this.memberDetailsService = memberDetailsService;
 	}
 	
-	@RequestMapping(value="/member/{id}")
+	@GetMapping(value="/member/{id}")
 	public String getMemberDetails(@PathVariable Long memberId) throws Exception {
 		
 		return memberDetailsService.getMemberDetailsById(memberId);
@@ -34,7 +35,7 @@ public class MemberController {
 		return memberDetailsService.saveMember(member);
 	}
 	
-	@RequestMapping(value="/members")
+	@GetMapping(value="/members")
 	public List<com.monks.spring.repository.entity.Member> getAllMembers() throws Exception {
 		
 		return memberDetailsService.getAllMembers();

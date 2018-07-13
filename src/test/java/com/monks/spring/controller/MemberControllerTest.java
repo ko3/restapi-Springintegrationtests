@@ -51,12 +51,21 @@ public class MemberControllerTest {
 												.content(asJsonString(member)))
 									.andExpect(status().isOk())
 									.andReturn();
-		System.out.println(mvcResult);
+		Member member2 = asJavaObject(mvcResult.getResponse().getContentAsString(), Member.class);
+		assertEquals("Rajinikanth", member2.getName());
 	}
 	
 	public static String asJsonString(final Object obj) {
 	    try {
 	        return new ObjectMapper().writeValueAsString(obj);
+	    } catch (Exception e) {
+	        throw new RuntimeException(e);
+	    }
+	}
+	
+	public static <T> T asJavaObject(String content, Class<T> cl) {
+	    try {
+	        return new ObjectMapper().readValue(content, cl);
 	    } catch (Exception e) {
 	        throw new RuntimeException(e);
 	    }
